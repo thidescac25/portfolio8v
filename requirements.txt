@@ -1,0 +1,12 @@
+numpy
+pandas
+streamlit
+yfinance
+plotly
+matplotlib
+pillow
+forex-python
+scipy
+scikit-learn
+pytz
+tzlocal
