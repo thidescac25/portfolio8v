@@ -251,8 +251,12 @@ with col2:
     reference_indices = {name: indices_options[name] for name in selected_indices}
 
 # Récupérer les données historiques
-@st.cache_data(ttl=3600)  # Cache pour 1 heure
+@st.cache_data(ttl=60) 
 def get_historical_data(tickers, start_date=None, end_date=None):
+    # Si end_date n'est pas fourni, utiliser la date actuelle
+    if end_date is None:
+        end_date = datetime.now()
+        
     data = {}
     for ticker in tickers:
         try:
@@ -267,7 +271,7 @@ def get_historical_data(tickers, start_date=None, end_date=None):
     return data
 
 # Fonction pour afficher les performances
-def plot_performance(hist_data, weights=None, reference_indices=None):
+def plot_performance(hist_data, weights=None, reference_indices=None, end_date_ui=None):
     if weights is None:
         weights = [1/len(hist_data)] * len(hist_data)
     
@@ -285,7 +289,8 @@ def plot_performance(hist_data, weights=None, reference_indices=None):
         return None
     
     start_date = max(start_dates)
-    end_date = min(end_dates)
+    # Utiliser la date de fin fournie par l'UI ou la date maximale disponible
+    end_date = end_date_ui or max(end_dates)
     
     # Créer le graphique
     fig = go.Figure()
@@ -433,7 +438,7 @@ def plot_performance(hist_data, weights=None, reference_indices=None):
     return fig
 
 # Fonction pour simuler l'évolution du portefeuille
-def plot_portfolio_simulation(hist_data, initial_investment=1000000):
+def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui=None):
     # Trouver les dates communes
     start_dates = []
     end_dates = []
@@ -448,7 +453,8 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000):
         return None, 0, 0, 0
     
     start_date = max(start_dates)
-    end_date = min(end_dates)
+    # Utiliser la date de fin fournie par l'UI ou la date maximale disponible
+    end_date = end_date_ui or max(end_dates)
     
     # Créer une plage de dates sans fuseau horaire
     date_range = pd.date_range(start=start_date, end=end_date, freq='B')
@@ -554,7 +560,11 @@ with st.spinner("Chargement des données historiques..."):
     hist_data = get_historical_data(tickers, start_date, end_date)
 
 # Afficher le graphique de performance
-performance_fig = plot_performance(hist_data, reference_indices=reference_indices)
+performance_fig = plot_performance(
+    hist_data, 
+    reference_indices=reference_indices,
+    end_date_ui=end_date
+)
 if performance_fig:
     st.plotly_chart(performance_fig, use_container_width=True, key="performance_chart")
 
@@ -565,7 +575,11 @@ st.markdown('<div class="section-title">Simulation d\'investissement</div>', uns
 investment_amount = 1000000  # 1 million d'euros fixe
 
 # Simulation
-simulation_fig, final_value, gain_loss, percent_change = plot_portfolio_simulation(hist_data, investment_amount)
+simulation_fig, final_value, gain_loss, percent_change = plot_portfolio_simulation(
+    hist_data, 
+    investment_amount,
+    end_date_ui=end_date
+)
 if simulation_fig:
     st.plotly_chart(simulation_fig, use_container_width=True, key="simulation_chart")
     
@@ -611,7 +625,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Charger les métriques
-@st.cache_data
+@st.cache_data(ttl=60)
 def load_metrics(tickers):
     rows = []
     for ticker in tickers:
