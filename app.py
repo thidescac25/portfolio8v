@@ -157,7 +157,7 @@ def get_stock_data(ticker):
         }
 
 # Titre principal 
-st.title("Komorebi Investments 8 stocks")
+st.markdown("<h1 style='font-size: 32px; margin-bottom: 10px;'>Komorebi Investments 8 stocks <span style='font-size: 18px;'>(page 1/2)</span></h1>", unsafe_allow_html=True)
 
 # Création du bandeau défilant avec un iframe HTML personnalisé
 def create_scrolling_ticker():

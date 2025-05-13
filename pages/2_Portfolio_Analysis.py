@@ -98,7 +98,7 @@ currency_mapping = {
 }
 
 # Titre principal
-st.markdown("<h1 style='font-size: 32px; margin-bottom: 10px;'>Komorebi - Performance du Portefeuille composé des 8 valeurs</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='font-size: 32px; margin-bottom: 10px;'>Komorebi - Performance du Portefeuille 8 valeurs <span style='font-size: 18px;'>(page 2/2)</span></h1>", unsafe_allow_html=True)
 
 # Fonction pour obtenir les données boursières actuelles
 @st.cache_data(ttl=60)  # Cache pour 60 secondes
