@@ -58,6 +58,21 @@ st.markdown("""
     .neutral {
         color: #102040;
     }
+    .stock-info-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        margin: 10px 0 20px 0;
+    }
+    .stock-info-item {
+        background-color: #f9f5f2;
+        border-radius: 5px;
+        padding: 8px 12px;
+        border-left: 4px solid #693112;
+        min-width: 180px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -160,7 +175,7 @@ def create_scrolling_ticker():
                 width: 100%;
                 overflow: hidden;
                 white-space: nowrap;
-                padding: 15px 0;
+                padding: 10px 0;
             }}
             .ticker-tape {{
                 display: inline-block;
@@ -206,14 +221,14 @@ def create_scrolling_ticker():
     """
     
     b64 = base64.b64encode(html_content.encode("utf-8")).decode("utf-8")
-    iframe_html = f'<iframe src="data:text/html;base64,{b64}" width="100%" height="60px" frameborder="0" scrolling="no"></iframe>'
+    iframe_html = f'<iframe src="data:text/html;base64,{b64}" width="100%" height="50px" frameborder="0" scrolling="no"></iframe>'
     return iframe_html
 
 # Bandeau défilant après le titre principal
 st.markdown(create_scrolling_ticker(), unsafe_allow_html=True)
 
 # Interface utilisateur
-st.markdown('<div class="section-title">Analyse de Performance</div>', unsafe_allow_html=True)
+st.markdown('<div class="section-title">Présentation de la Performance</div>', unsafe_allow_html=True)
 
 # Récupérer les tickers du portefeuille
 tickers = portfolio_df['Ticker'].tolist()
@@ -304,7 +319,6 @@ def plot_performance(hist_data, weights=None, reference_indices=None, end_date_u
     # Variables pour stocker les traces
     portfolio_trace = None
     indices_traces = []
-    stock_traces = []
     
     # Ajouter chaque action
     for i, (ticker, hist) in enumerate(hist_data.items()):
@@ -322,16 +336,6 @@ def plot_performance(hist_data, weights=None, reference_indices=None, end_date_u
         # Normaliser à 100
         normalized = reindexed / reindexed.iloc[0] * 100
         all_normalized[ticker] = normalized
-        
-        # Ajouter au graphique (mais sauvegarder la trace pour l'ajouter plus tard)
-        stock_traces.append(go.Scatter(
-            x=normalized.index,
-            y=normalized.values,
-            mode='lines',
-            name=ticker,
-            line=dict(width=1, dash='dot'),
-            opacity=0.3
-        ))
     
     # Calculer la performance du portefeuille
     if all_normalized.empty:
@@ -385,14 +389,11 @@ def plot_performance(hist_data, weights=None, reference_indices=None, end_date_u
             except Exception as e:
                 st.warning(f"Erreur lors de la récupération des données pour {name}: {e}")
     
-    # Ajouter les traces dans l'ordre : d'abord le portefeuille, puis les indices, puis les actions
+    # Ajouter les traces dans l'ordre : d'abord le portefeuille, puis les indices
     if portfolio_trace:
         fig.add_trace(portfolio_trace)
     
     for trace in indices_traces:
-        fig.add_trace(trace)
-    
-    for trace in stock_traces:
         fig.add_trace(trace)
     
     # Mise en forme
@@ -450,7 +451,7 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui
     
     if not start_dates or not end_dates:
         st.warning("Pas assez de données pour créer une simulation.")
-        return None, 0, 0, 0
+        return None, 0, 0, 0, []
     
     start_date = max(start_dates)
     # Utiliser la date de fin fournie par l'UI ou la date maximale disponible
@@ -470,6 +471,7 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui
     all_values = pd.DataFrame(index=date_range)
     
     # Calculer l'évolution de la valeur de chaque action
+    stock_info = []
     for ticker, hist in hist_data.items():
         if hist.empty:
             continue
@@ -484,6 +486,13 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui
         initial_price = reindexed.iloc[0]
         num_shares = investment_per_stock / initial_price
         
+        # Stocker les informations pour l'affichage
+        stock_info.append({
+            "ticker": ticker,
+            "num_shares": int(num_shares),
+            "initial_investment": investment_per_stock
+        })
+        
         # Calculer la valeur au fil du temps
         stock_value = reindexed * num_shares
         all_values[ticker] = stock_value
@@ -493,7 +502,7 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui
             x=stock_value.index,
             y=stock_value.values,
             mode='lines',
-            name=f"{ticker} ({num_shares:.0f} actions)",
+            name=ticker,
             line=dict(width=1, dash='dot'),
             opacity=0.3
         ))
@@ -520,20 +529,14 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui
         line=dict(color="black", width=2, dash="dash")
     )
     
-    # Mise en forme
+    # Mise en forme (MODIFIÉ)
     fig.update_layout(
-        title=f"Évolution d'un investissement de {initial_investment:,.0f} € réparti équitablement",
+        title=f"Évolution d'un investissement de {f"{initial_investment:_}".replace("_", " ")} € réparti équitablement",
         xaxis_title="Date",
         yaxis_title="Valeur (€)",
         height=500,
         template="plotly_white",
-        legend=dict(
-            orientation="h",
-            yanchor="bottom",
-            y=1.02,
-            xanchor="right",
-            x=1
-        )
+        showlegend=False  # Supprimer la légende complètement
     )
     
     # Ajuster l'échelle Y pour mieux voir les courbes principales
@@ -554,7 +557,7 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui
         gain_loss = final_value - initial_investment
         percent_change = (gain_loss / initial_investment) * 100
     
-    return fig, final_value, gain_loss, percent_change
+    return fig, final_value, gain_loss, percent_change, stock_info
 
 with st.spinner("Chargement des données historiques..."):
     hist_data = get_historical_data(tickers, start_date, end_date)
@@ -575,15 +578,38 @@ st.markdown('<div class="section-title">Simulation d\'investissement</div>', uns
 investment_amount = 1000000  # 1 million d'euros fixe
 
 # Simulation
-simulation_fig, final_value, gain_loss, percent_change = plot_portfolio_simulation(
+simulation_fig, final_value, gain_loss, percent_change, stock_info = plot_portfolio_simulation(
     hist_data, 
     investment_amount,
     end_date_ui=end_date
 )
+
+# Afficher les informations sur le nombre d'actions achetées
+if stock_info:
+    # Créer une disposition en colonnes (4 colonnes par ligne pour les écrans moyens)
+    num_cols = 4  # Nombre de colonnes souhaité
+    cols = st.columns(num_cols)
+    
+    # Distribuer les tickers dans les colonnes
+    for i, info in enumerate(stock_info):
+        with cols[i % num_cols]:  # Répartir équitablement entre les colonnes
+            st.markdown(
+                f"""
+                <div style="background-color:#f9f5f2; padding:8px; 
+                     border-left:4px solid #693112; border-right:4px solid #693112;
+                     margin:4px 0; border-radius:5px; text-align:center; height:100%;">
+                    <div style="font-weight:bold; font-size:14px;">{info['ticker']}</div>
+                    <div style="font-size:12px;">{round(info['num_shares'])} actions</div>
+                    <div style="font-size:12px;">{f"{int(info['initial_investment']):_}".replace("_", " ")} €</div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
+
 if simulation_fig:
     st.plotly_chart(simulation_fig, use_container_width=True, key="simulation_chart")
     
-    # Afficher les résultats de la simulation
+    # Afficher les résultats de la simulation (MODIFIÉ)
     col1, col2, col3 = st.columns(3)
     
     with col1:
@@ -591,7 +617,7 @@ if simulation_fig:
             f"""
             <div class="metric-container">
                 <div class="metric-title">Valeur finale</div>
-                <div class="metric-value">{final_value:,.0f} €</div>
+                <div class="metric-value">{f"{int(final_value):_}".replace("_", " ")} €</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -602,7 +628,7 @@ if simulation_fig:
             f"""
             <div class="metric-container">
                 <div class="metric-title">Gain/Perte</div>
-                <div class="metric-value {'positive' if gain_loss >= 0 else 'negative'}">{gain_loss:+,.0f} €</div>
+                <div class="metric-value {'positive' if gain_loss >= 0 else 'negative'}">{'+' if gain_loss >= 0 else ''}{f"{int(gain_loss):_}".replace("_", " ")} €</div>
             </div>
             """,
             unsafe_allow_html=True
@@ -736,40 +762,58 @@ country_alloc = df_sc.groupby("Country")["Weight"].sum().reset_index()
 col_pie1, col_pie2 = st.columns(2)
 
 with col_pie1:
-    # Camembert sectoriel
-    fig_sector = px.pie(
-        sector_alloc,
-        names="Sector",
-        values="Weight",
-        title="Répartition Sectorielle",
-        color_discrete_sequence=['#693112', '#8B4513', '#A0522D', '#CD853F', '#D2691E', '#B8860B', '#DAA520', '#F4A460']
-    )
-    fig_sector.update_traces(textposition="inside", texttemplate="%{label}<br>%{percent:.1%}")
-    fig_sector.update_layout(
-        showlegend=False,  # Supprimer la légende
-        font=dict(color="#102040"),
-        title_font=dict(color="#693112", size=18)
-    )
-    
-    st.plotly_chart(fig_sector, use_container_width=True, key="sector_pie")
+ # Version corrigée du camembert sectoriel (MODIFIÉ)
+ colors = ['#693112', '#8B4513', '#A0522D', '#CD853F', '#D2691E', '#B8860B', '#DAA520']
+ 
+ # Créer le graphique avec couleurs personnalisées
+ fig_sector = px.pie(
+     sector_alloc,
+     names="Sector",
+     values="Weight",
+     title="Répartition Sectorielle",
+     color="Sector",
+     color_discrete_sequence=colors
+ )
+ 
+ # Configurer les textes dans le camembert
+ fig_sector.update_traces(
+     textposition="inside", 
+     texttemplate="%{label}<br>%{percent:.0%}",  # Enlever les virgules en utilisant .0%
+     textfont=dict(color='white'),  # Uniformiser tous les titres en blanc
+     marker=dict(line=dict(color='#693112', width=1.5))  # Bordure marron
+ )
+ 
+ fig_sector.update_layout(
+     showlegend=False,  # Supprimer la légende
+     font=dict(color="#102040"),
+     title_font=dict(color="#693112", size=18)
+ )
+ 
+ st.plotly_chart(fig_sector, use_container_width=True, key="sector_pie")
 
 with col_pie2:
-    # Camembert géographique
-    fig_geo = px.pie(
-        country_alloc,
-        names="Country",
-        values="Weight",
-        title="Répartition Géographique",
-        color_discrete_sequence=['#102040', '#1A365D', '#27496D', '#142F43', '#0F3460', '#2C3E50', '#34495E', '#283747']
-    )
-    fig_geo.update_traces(textposition="inside", texttemplate="%{label}<br>%{percent:.1%}")
-    fig_geo.update_layout(
-        showlegend=False,  # Supprimer la légende
-        font=dict(color="#102040"),
-        title_font=dict(color="#693112", size=18)
-    )
-    
-    st.plotly_chart(fig_geo, use_container_width=True, key="geo_pie")
+ # Camembert géographique avec différentes nuances de bleu
+ blue_palette = ['#102040', '#1A365D', '#27496D', '#142F43', '#0F3460', '#2C3E50', '#34495E', '#283747']
+ 
+ fig_geo = px.pie(
+     country_alloc,
+     names="Country",
+     values="Weight",
+     title="Répartition Géographique",
+     color_discrete_sequence=blue_palette
+ )
+ fig_geo.update_traces(
+     textposition="inside", 
+     texttemplate="%{label}<br>%{percent:.0%}",  # Enlever les virgules
+     textfont=dict(color='white')  # Uniformiser tous les titres en blanc
+ )
+ fig_geo.update_layout(
+     showlegend=False,  # Supprimer la légende
+     font=dict(color="#102040"),
+     title_font=dict(color="#693112", size=18)
+ )
+ 
+ st.plotly_chart(fig_geo, use_container_width=True, key="geo_pie")
 
 # Ajouter un séparateur marron entre les sections
 st.markdown("""
@@ -779,20 +823,20 @@ st.markdown("""
 # Affichage du tableau des métriques
 st.markdown("### Tableau détaillé des valeurs")
 st.dataframe(
-    metrics_df.style.format({
-        col: '{:.2f}' for col in metrics_df.select_dtypes(include=['float64']).columns
-    }).background_gradient(
-        cmap='YlOrBr', 
-        subset=['Prix Actuel', 'Market Cap', 'PER (TTM)', 'Div Yield']
-    ),
-    use_container_width=True,
-    key="metrics_table"
+ metrics_df.style.format({
+     col: '{:.2f}' for col in metrics_df.select_dtypes(include=['float64']).columns
+ }).background_gradient(
+     cmap='YlOrBr', 
+     subset=['Prix Actuel', 'Market Cap', 'PER (TTM)', 'Div Yield']
+ ),
+ use_container_width=True,
+ key="metrics_table"
 )
 
 # Pied de page
 st.markdown("""
 <div style="margin-top: 50px; padding-top: 20px; border-top: 1px solid #ddd; text-align: center; color: #666;">
-    <p>Komorebi Investments © 2025 - Analyse de Portefeuille</p>
-    <p style="font-size: 12px; margin-top: 10px;">Les informations présentées ne constituent en aucun cas un conseil d'investissement, ni une sollicitation à acheter ou vendre des instruments financiers. L'investisseur est seul responsable de ses décisions d'investissement.</p>
+ <p>Komorebi Investments © 2025 - Analyse de Portefeuille</p>
+ <p style="font-size: 12px; margin-top: 10px;">Les informations présentées ne constituent en aucun cas un conseil d'investissement, ni une sollicitation à acheter ou vendre des instruments financiers. L'investisseur est seul responsable de ses décisions d'investissement.</p>
 </div>
 """, unsafe_allow_html=True)

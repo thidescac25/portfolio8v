@@ -78,7 +78,7 @@ def get_stock_data(ticker):
         else:
             ytd_change = 0
         
-        # BPA et capitalisation
+        # BPA - MODIFICATION: utiliser trailingEps directement
         eps = info.get('trailingEps', 0)
         market_cap = info.get('marketCap', 0) / 1_000_000_000  # Conversion en milliards
         
@@ -204,7 +204,7 @@ def create_scrolling_ticker():
                 width: 100%;
                 overflow: hidden;
                 white-space: nowrap;
-                padding: 15px 0;
+                padding: 12px 0;  /* MODIFICATION: réduit de 15px à 12px */
             }}
             .ticker-tape {{
                 display: inline-block;
@@ -215,7 +215,7 @@ def create_scrolling_ticker():
                 display: inline-block;
                 padding: 0 50px;  /* Plus d'espace entre les éléments */
                 color: white;
-                font-size: 20px;
+                font-size: 18px;  /* MODIFICATION: réduit de 20px à 18px */
             }}
             .ticker-name {{
                 font-weight: bold;
@@ -252,8 +252,8 @@ def create_scrolling_ticker():
     # Encodage en base64 pour l'iframe avec spécification UTF-8 explicite
     b64 = base64.b64encode(html_content.encode("utf-8")).decode("utf-8")
     
-    # Injecter l'iframe avec le contenu HTML
-    iframe_html = f'<iframe src="data:text/html;base64,{b64}" width="100%" height="60px" frameborder="0" scrolling="no"></iframe>'
+    # Injecter l'iframe avec le contenu HTML - MODIFICATION: hauteur réduite de 60px à 52px
+    iframe_html = f'<iframe src="data:text/html;base64,{b64}" width="100%" height="52px" frameborder="0" scrolling="no"></iframe>'
     
     return iframe_html
 
@@ -298,8 +298,8 @@ st.markdown("""
         padding-bottom: 10px;
     }
     .business-text {
-        font-size: 20px;
-        line-height: 1.7;
+        font-size: 18px;  /* MODIFICATION: réduit de 20px à 18px */
+        line-height: 1.6;  /* MODIFICATION: réduit de 1.7 à 1.6 */
         font-weight: bold;
         text-align: justify;
     }
