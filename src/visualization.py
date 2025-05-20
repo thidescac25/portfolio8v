@@ -5,9 +5,8 @@ import streamlit as st
 import numpy as np
 from datetime import datetime
 
-# Créer le tableau du portefeuille avec hauteur fixe - VERSION CORRIGÉE
+# Créer le tableau du portefeuille avec hauteur fixe 
 def create_portfolio_table(comp_df):
-    # Fonction pour déterminer la couleur du fond en fonction de la variation
     def get_bg_color(val):
         if val > 0:
             return "#9CAF88"  # Vert olive clair pour les valeurs positives
@@ -38,9 +37,9 @@ def create_portfolio_table(comp_df):
     # Créer le tableau avec l'ordre des colonnes modifié et le gradient de couleur pour la variation
     fig = go.Figure()
 
-    # Ajouter le tableau principal avec le nouvel ordre des colonnes
+    # Ajouter le tableau principal
     fig.add_trace(go.Table(
-        columnwidth=[40, 200, 120, 80, 60, 150, 120],  # Élargir la colonne Société
+        columnwidth=[40, 200, 120, 80, 60, 150, 120],  
         header=dict(
             values=[
                 '<b>Index</b>', 
@@ -52,11 +51,11 @@ def create_portfolio_table(comp_df):
                 '<b>Pays</b>'
             ],
             font=dict(size=14, color='white'),
-            fill_color='#693112',  # Marron foncé pour les en-têtes
+            fill_color='#693112',  
             align=['center', 'center', 'center', 'center', 'center', 'center', 'center'],
             height=40,
-            line_color='lightgrey',  # NOUVEAU : Couleur des bordures header
-            line_width=1             # NOUVEAU : Épaisseur des bordures header
+            line_color='lightgrey',  
+            line_width=1             
         ),
         cells=dict(
             values=[
@@ -68,19 +67,19 @@ def create_portfolio_table(comp_df):
                 sector_vals,
                 country_vals
             ],
-            font=dict(size=13, color='#102040', family="Arial"),  # Texte en bleu foncé et en gras
+            font=dict(size=13, color='#102040', family="Arial"),  
             fill_color=[
                 'white', 
                 'white',
-                bg_colors,  # Appliquer les couleurs de fond pour la colonne variation
+                bg_colors,  
                 'white',
                 'white', 
                 'white', 
                 'white'
             ],
             align=['center', 'left', 'center', 'center', 'center', 'center', 'center'],
-            line_color='lightgrey',  # Légère bordure entre les cellules
-            line_width=1,            # NOUVEAU : Épaisseur des bordures cellules
+            line_color='lightgrey',  
+            line_width=1,            
             height=30
         )
     ))
@@ -104,7 +103,7 @@ def create_stock_chart(hist, ticker, currency, period_selection):
         filtered_hist = hist.iloc[-30:]
     elif period_selection == "6 mois":
         filtered_hist = hist.iloc[-180:]
-    else:  # 1 an
+    else:  
         filtered_hist = hist
 
     # Calculer les statistiques
@@ -306,8 +305,7 @@ def plot_portfolio_simulation(hist_data, initial_investment=1000000, end_date_ui
         })
         stock_value = reindexed * num_shares
         all_values[ticker] = stock_value
-        
-        # Limiter le nombre de traces individuelles pour une meilleure lisibilité
+       
         if len(stock_info) <= max_traces:
             fig.add_trace(go.Scatter(
                 x=stock_value.index,
@@ -447,12 +445,12 @@ def display_top_contributors(df_perf):
 def create_bar_charts(df_sc):
     # Graphique secteur
     sector_data = df_sc.groupby('Sector')['Weight'].sum().reset_index()
-    sector_data = sector_data.sort_values('Weight', ascending=True)  # Pour les barres horizontales
+    sector_data = sector_data.sort_values('Weight', ascending=True)  
     
     fig_sector = go.Figure()
     fig_sector.add_trace(go.Bar(
         y=sector_data['Sector'],
-        x=sector_data['Weight'] * 100,  # Convertir en pourcentage
+        x=sector_data['Weight'] * 100,  
         orientation='h',
         marker=dict(color='#693112'),
         text=[f"{x:.1f}%" for x in sector_data['Weight'] * 100],
@@ -470,12 +468,12 @@ def create_bar_charts(df_sc):
     
     # Graphique pays
     country_data = df_sc.groupby('Country')['Weight'].sum().reset_index()
-    country_data = country_data.sort_values('Weight', ascending=True)  # Pour les barres horizontales
+    country_data = country_data.sort_values('Weight', ascending=True)  
     
     fig_geo = go.Figure()
     fig_geo.add_trace(go.Bar(
         y=country_data['Country'],
-        x=country_data['Weight'] * 100,  # Convertir en pourcentage
+        x=country_data['Weight'] * 100,  
         orientation='h',
         marker=dict(color='#102040'),
         text=[f"{x:.1f}%" for x in country_data['Weight'] * 100],

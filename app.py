@@ -135,7 +135,7 @@ st.markdown('</div>', unsafe_allow_html=True)
 # Composition du portefeuille
 st.markdown('<div class="section-title">Composition du portefeuille</div>', unsafe_allow_html=True)
 
-# CSS OPTIMAL - Solution ChatGPT v2 + largeur complète
+# CSS OPTIMAL 
 st.markdown("""
 <style>
 /* 1/ Enlève tout espace sous le tableau plotly (Solution ChatGPT v2) */
@@ -200,8 +200,6 @@ html_str = table_fig.to_html(
 st.markdown('<div class="portfolio-table-container">', unsafe_allow_html=True)
 components.html(html_str, height=table_height, scrolling=False)
 st.markdown('</div>', unsafe_allow_html=True)
-
-# SUPPRESSION du spacer + titre avec classe "next" (Solution ChatGPT v2)
 st.markdown('<div class="section-title next">Performance du jour des valeurs</div>', unsafe_allow_html=True)
 
 n     = len(comp_df)

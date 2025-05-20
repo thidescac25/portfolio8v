@@ -183,22 +183,21 @@ def create_scrolling_ticker():
     iframe_html = f'<iframe src="data:text/html;base64,{b64}" width="100%" height="50px" frameborder="0" scrolling="no"></iframe>'
     return iframe_html
 
-# Création du bandeau défilant pour la watchlist - CORRIGÉ pour défilement continu
+# Création du bandeau défilant pour la watchlist 
 def create_watchlist_scrolling_ticker(watchlist_df):
     ticker_items = ""
     
     for _, row in watchlist_df.iterrows():
         # Récupérer le nom complet de la société
         ticker = row.get('Ticker', 'N/A')
-        company = row.get('Nom complet', ticker)  # Utiliser "Nom complet" du CSV
+        company = row.get('Nom complet', ticker)
         
         # Obtenir les données en temps réel pour chaque ticker de la watchlist
         try:
             stock_data = get_stock_data(ticker)
             current_price = stock_data['current_price']
             percent_change = stock_data['percent_change']
-            # Utiliser la devise du CSV
-            currency = row.get('Devise', '$')  # Utiliser la colonne "Devise" du CSV
+            currency = row.get('Devise', '$') 
             
             if percent_change >= 0:
                 change_class = "positive"
