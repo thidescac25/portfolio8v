@@ -99,9 +99,13 @@ st.markdown("""
         border-bottom: 2px solid #8d6e63;
         padding-bottom: 10px;
         font-size: 1.1rem;
-        margin-top: 30px;
-        margin-bottom: 20px;
+        margin-top: 40px;
+        margin-bottom: 25px;
         font-weight: bold;
+    }
+    
+    .first-section {
+        margin-top: 80px !important;
     }
     
     .division-card {
@@ -192,7 +196,7 @@ st.markdown("""
         background: #f1f5f9;
         color: #1e3a8a;
         padding: 10px;
-        text-align: center;
+        text-align: center !important;
         font-weight: bold;
     }
     
@@ -208,6 +212,7 @@ st.markdown("""
         align-items: center;
         width: 100%;
         margin: 20px 0;
+        padding-left: 120px;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -222,32 +227,29 @@ st.markdown("""
 # Séparateur marron foncé
 st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
 
-# Header avec logo centré
-st.markdown("""
-<div class="centered-logo">
-""", unsafe_allow_html=True)
-
+# Header avec logo centré entre E et H
 try:
     logo_image = Image.open("images/rolls.png")
-    col1, col2, col3 = st.columns([1, 1, 1])
-    with col2:
+    # Utilisation de colonnes pour forcer le centrage exact - centre du logo entre E et H
+    col_left, col_center, col_right = st.columns([2.6, 1, 2.4])
+    with col_center:
         st.image(logo_image, width=150)
 except FileNotFoundError:
-    # Fallback si l'image n'est pas trouvée - logo centré
-    logo_html = """
-    <div style="display: flex; justify-content: center; margin-bottom: 20px;">
-        <div style="width: 150px; height: 90px; background-color: #0033A0; border-radius: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-            <div style="color: white; font-size: 1.2rem; font-weight: bold; letter-spacing: 3px; margin-bottom: 5px;">ROLLS</div>
-            <div style="background-color: white; width: 80%; height: 30px; display: flex; justify-content: center; align-items: center; margin: 5px 0;">
-                <span style="color: #0033A0; font-size: 2rem; font-weight: bold;">RR</span>
+    # Fallback si l'image n'est pas trouvée - logo centré entre E et H
+    col_left, col_center, col_right = st.columns([2.6, 1, 2.4])
+    with col_center:
+        logo_html = """
+        <div style="display: flex; justify-content: center; margin-bottom: 20px;">
+            <div style="width: 150px; height: 90px; background-color: #0033A0; border-radius: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; border: 3px solid white; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                <div style="color: white; font-size: 1.2rem; font-weight: bold; letter-spacing: 3px; margin-bottom: 5px;">ROLLS</div>
+                <div style="background-color: white; width: 80%; height: 30px; display: flex; justify-content: center; align-items: center; margin: 5px 0;">
+                    <span style="color: #0033A0; font-size: 2rem; font-weight: bold;">RR</span>
+                </div>
+                <div style="color: white; font-size: 1.2rem; font-weight: bold; letter-spacing: 3px; margin-top: 5px;">ROYCE</div>
             </div>
-            <div style="color: white; font-size: 1.2rem; font-weight: bold; letter-spacing: 3px; margin-top: 5px;">ROYCE</div>
         </div>
-    </div>
-    """
-    st.markdown(logo_html, unsafe_allow_html=True)
-
-st.markdown("</div>", unsafe_allow_html=True)
+        """
+        st.markdown(logo_html, unsafe_allow_html=True)
 
 st.markdown("""
 <div style="text-align: center;">
@@ -267,7 +269,7 @@ st.markdown("""
 # Contrat Unity
 st.markdown("""
 <div class="unity-contract">
-    <h2 style="color: white; margin-top: 0;">🛡️ Contrat "UNITY" – Record Historique de £9 Milliards</h2>
+    <h2 style="color: white; margin-top: 0; font-size: 1.4rem;">🛡️ Contrat "UNITY" – Record Historique de £9 Milliards</h2>
     <table style="width:80%; margin: 0 auto; color:white; text-align: center;">
         <tr>
             <th style="width:20%; text-align: center; background-color: #F5F5DC;">Élément</th>
@@ -301,8 +303,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Métriques clés avec cours actualisé - espace augmenté avant
-st.markdown("<h3 style='text-align: center; margin: 50px 0 30px 0;'>Indicateurs Clés</h3>", unsafe_allow_html=True)
+# Métriques clés avec cours actualisé - espace augmenté avant (60px au lieu de 50px)
+st.markdown("<h3 style='text-align: center; margin: 60px 0 30px 0;'>Indicateurs Clés</h3>", unsafe_allow_html=True)
 
 # Récupération du cours actuel avec yfinance
 try:
@@ -348,24 +350,21 @@ with col4:
     st.markdown("""
     <div class="metric-card">
         <div class="metric-value">£17,4Mrd</div>
-        <div class="metric-label">Carnet commandes au 31 déc. 2024</div>
+        <div class="metric-label">Carnet commandes division Défense</div>
     </div>
     """, unsafe_allow_html=True)
 
-# Section I - Présentation (titre réduit et espace augmenté)
-st.markdown('<h4 class="section-header">I. PRÉSENTATION DE LA SOCIÉTÉ</h4>', unsafe_allow_html=True)
+# Section I - Présentation (espace fortement augmenté avant)
+st.markdown('<h4 class="section-header first-section">I. PRÉSENTATION DE LA SOCIÉTÉ</h4>', unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-st.info("**Positionnement :** 2ème fabricant mondial moteurs avions • 16ème contractant défense mondial • Leader mondial propulsion nucléaire navale")
+st.info("**Positionnement :** 2ème fabricant mondial de moteurs d'avions • 16ème contractant mondial dans l'industrie de la défense • Leader mondial en propulsion nucléaire navale")
 
 # Tableau informations générales
 st.markdown("""
 <table>
     <tr>
-        <th>Informations Générales</th>
-        <th>Détails</th>
+        <th style="text-align: center;">Informations Générales</th>
+        <th style="text-align: center;">Détails</th>
     </tr>
     <tr>
         <td><strong>Siège social</strong></td>
@@ -390,22 +389,16 @@ st.markdown("""
 </table>
 """, unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-# Section II - Résultats financiers (titre réduit)
+# Section II - Résultats financiers
 st.markdown('<h4 class="section-header">II. RÉSULTATS FINANCIERS 2024</h4>', unsafe_allow_html=True)
-
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
 
 st.markdown("""
 <table>
     <tr>
-        <th>Indicateur</th>
-        <th>2024</th>
-        <th>2023</th>
-        <th>Variation</th>
+        <th style="text-align: center;">Indicateur</th>
+        <th style="text-align: center;">2024</th>
+        <th style="text-align: center;">2023</th>
+        <th style="text-align: center;">Variation</th>
     </tr>
     <tr>
         <td><strong>CA sous-jacent</strong></td>
@@ -440,24 +433,65 @@ st.markdown("""
 </table>
 """, unsafe_allow_html=True)
 
-# Section III - Structure par divisions (titre réduit)
-st.markdown('<h4 class="section-header">III. STRUCTURE PAR DIVISIONS</h4>', unsafe_allow_html=True)
+# Section III - Guidance (ancienne section IV - déplacée ici)
+st.markdown('<h4 class="section-header">III. GUIDANCE 2025 & OBJECTIFS MID-TERM RELEVÉS</h4>', unsafe_allow_html=True)
+
+st.markdown("### <span style='font-size: 0.8em;'>🎯 Guidance 2025 (confirmée)</span>", unsafe_allow_html=True)
+st.markdown("""
+- **Profit opérationnel :** £2,7-2,9 Mrd
+- **Free Cash Flow :** £2,7-2,9 Mrd
+- **Objectifs mid-term atteints avec 2 ans d'avance**
+""")
+
+st.markdown("### <span style='font-size: 0.8em;'>📈 Nouvelle Guidance Mid-term (2028) - RELEVÉE</span>", unsafe_allow_html=True)
+st.markdown("""
+<table>
+    <tr>
+        <th style="text-align: center;">Indicateur</th>
+        <th style="text-align: center;">Nouveaux Objectifs 2028</th>
+        <th style="text-align: center;">Anciens Objectifs 2027</th>
+    </tr>
+    <tr>
+        <td><strong>Profit opérationnel</strong></td>
+        <td>£3,6-3,9 Mrd</td>
+        <td>£2,5-2,8 Mrd</td>
+    </tr>
+    <tr>
+        <td><strong>Marge opérationnelle</strong></td>
+        <td>15-17%</td>
+        <td>13-15%</td>
+    </tr>
+    <tr>
+        <td><strong>Free Cash Flow</strong></td>
+        <td>£4,2-4,5 Mrd</td>
+        <td>£2,8-3,1 Mrd</td>
+    </tr>
+    <tr>
+        <td><strong>Return on Capital</strong></td>
+        <td>18-21%</td>
+        <td>16-18%</td>
+    </tr>
+</table>
+""", unsafe_allow_html=True)
+
+# Section IV - Structure par divisions (ancienne section III - renumérotée)
+st.markdown('<h4 class="section-header">IV. STRUCTURE PAR DIVISIONS</h4>', unsafe_allow_html=True)
 
 # Encart Power-by-the-Hour corrigé - contenu HTML affiché correctement
 st.markdown("""
 <div style="background: #f8f4f1; border: 1px solid #5D4037; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
-    <h3 style="color: #5D4037; margin-top: 0;">🔄 "Power-by-the-Hour" : le modèle économique de Rolls-Royce</h3>
+    <h3 style="color: #5D4037; margin-top: 0; font-size: 1.2rem;">🔄 "Power-by-the-Hour" : le modèle économique de Rolls-Royce</h3>
     <p>Rolls-Royce continue d'exploiter activement son modèle "Power-by-the-Hour" (PBH) en 2025. Ce concept, introduit en 1962, est désormais intégré dans ses offres de services long terme, notamment via le programme <strong>TotalCare®</strong>, qui couvre plus de 4 000 moteurs en service.</p>
 </div>
 """, unsafe_allow_html=True)
 
 # Tableaux Power-by-the-Hour affichés correctement
 st.markdown("""
-<h4 style="color: #5D4037;">✅ Avantages du modèle Power-by-the-Hour</h4>
+<h4 style="color: #5D4037; font-size: 1.05rem;">✅ Avantages du modèle Power-by-the-Hour</h4>
 <table style="width:100%;">
     <tr>
-        <th style="width:50%;">Pour les compagnies aériennes</th>
-        <th style="width:50%;">Pour Rolls-Royce</th>
+        <th style="width:50%; text-align: center;">Pour les compagnies aériennes</th>
+        <th style="width:50%; text-align: center;">Pour Rolls-Royce</th>
     </tr>
     <tr>
         <td>🔹 <strong>Prévisibilité budgétaire</strong> : Coûts de maintenance fixes par heure de vol, facilitant la planification financière.</td>
@@ -473,11 +507,11 @@ st.markdown("""
     </tr>
 </table>
 
-<h4 style="color: #5D4037; margin-top: 15px;">⚠️ Inconvénients du modèle Power-by-the-Hour</h4>
+<h4 style="color: #5D4037; margin-top: 15px; font-size: 1.05rem;">⚠️ Inconvénients du modèle Power-by-the-Hour</h4>
 <table style="width:100%;">
     <tr>
-        <th style="width:50%;">Pour les compagnies aériennes</th>
-        <th style="width:50%;">Pour Rolls-Royce</th>
+        <th style="width:50%; text-align: center;">Pour les compagnies aériennes</th>
+        <th style="width:50%; text-align: center;">Pour Rolls-Royce</th>
     </tr>
     <tr>
         <td>🔸 <strong>Coût total potentiellement plus élevé</strong> : Sur le long terme, les frais cumulés peuvent dépasser ceux d'une maintenance à la demande.</td>
@@ -540,63 +574,10 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-# Section IV - Guidance (titre réduit)
-st.markdown('<h4 class="section-header">IV. GUIDANCE 2025 & OBJECTIFS MID-TERM RELEVÉS</h4>', unsafe_allow_html=True)
-
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-st.markdown("### 🎯 Guidance 2025 (confirmée)")
-st.markdown("""
-- **Profit opérationnel :** £2,7-2,9 Mrd
-- **Free Cash Flow :** £2,7-2,9 Mrd
-- **Objectifs mid-term atteints avec 2 ans d'avance**
-""")
-
-st.markdown("### 📈 Nouvelle Guidance Mid-term (2028) - RELEVÉE")
-st.markdown("""
-<table>
-    <tr>
-        <th>Indicateur</th>
-        <th>Nouveaux Objectifs 2028</th>
-        <th>Anciens Objectifs 2027</th>
-    </tr>
-    <tr>
-        <td><strong>Profit opérationnel</strong></td>
-        <td>£3,6-3,9 Mrd</td>
-        <td>£2,5-2,8 Mrd</td>
-    </tr>
-    <tr>
-        <td><strong>Marge opérationnelle</strong></td>
-        <td>15-17%</td>
-        <td>13-15%</td>
-    </tr>
-    <tr>
-        <td><strong>Free Cash Flow</strong></td>
-        <td>£4,2-4,5 Mrd</td>
-        <td>£2,8-3,1 Mrd</td>
-    </tr>
-    <tr>
-        <td><strong>Return on Capital</strong></td>
-        <td>18-21%</td>
-        <td>16-18%</td>
-    </tr>
-</table>
-""", unsafe_allow_html=True)
-
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-# Section V - Innovations technologiques (titre réduit)
+# Section V - Innovations technologiques
 st.markdown('<h4 class="section-header">V. INNOVATIONS TECHNOLOGIQUES</h4>', unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-st.markdown("### 🤖 Programme IntelligentEngine - Robotique Avancée")
+st.markdown("### <span style='font-size: 0.75em;'>🤖 Programme IntelligentEngine - Robotique Avancée</span>", unsafe_allow_html=True)
 
 st.markdown("""
 <div class="catalyst-item">
@@ -610,7 +591,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-st.markdown("### 🔬 Intelligence Artificielle & Digital Twin")
+st.markdown("### <span style='font-size: 0.75em;'>🔬 Intelligence Artificielle & Digital Twin</span>", unsafe_allow_html=True)
 
 st.markdown("""
 <div class="catalyst-item">
@@ -624,14 +605,8 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-# Section VI - UltraFan (titre réduit)
-st.markdown('<h4 class="section-header">VI. ULTRAFAN - ÉVOLUTION TECHNOLOGIQUE VALIDÉE</h4>', unsafe_allow_html=True)
-
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
+# Section VI - UltraFan (titre modifié)
+st.markdown('<h4 class="section-header">VI. FUTUR MOTEUR AVION "ULTRAFAN" - ÉVOLUTION TECHNOLOGIQUE VALIDÉE</h4>', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="new-development">
@@ -642,9 +617,9 @@ st.markdown("""
 st.markdown("""
 <table>
     <tr>
-        <th>Caractéristique UltraFan</th>
-        <th>Détail Technique</th>
-        <th>Avantage Concurrentiel</th>
+        <th style="text-align: center;">Caractéristique UltraFan</th>
+        <th style="text-align: center;">Détail Technique</th>
+        <th style="text-align: center;">Avantage Concurrentiel</th>
     </tr>
     <tr>
         <td><strong>Efficacité énergétique</strong></td>
@@ -659,24 +634,21 @@ st.markdown("""
     <tr>
         <td><strong>Boîte de vitesses (gearbox)</strong></td>
         <td>Puissance record de 50 MW</td>
-        <td class="positive">Technologie exclusive optimisant performance moteur</td>
+        <td class="positive">Technologie innovante optimisant la performance du moteur</td>
     </tr>
     <tr>
         <td><strong>Capacité de modulation (scaling)</strong></td>
         <td>Plage de poussée : 25 000 à 110 000 lb</td>
-        <td>UltraFlexibilité pour court, moyen et long-courrier</td>
+        <td>Flexibilité opérationnelle afin de couvrir les trois gammes d'avions : court, moyen et long-courrier</td>
     </tr>
 </table>
 """, unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
-# Section VII - SMR (titre réduit)
-st.markdown('<h4 class="section-header">VII. SMR - PERCÉES COMMERCIALES MAJEURES</h4>', unsafe_allow_html=True)
+# Section VII - SMR
+st.markdown('<h4 class="section-header">VII. SMR (Réacteur nucléaire civil modulaire de petite puissance) - <span style="font-size: 0.75rem;">PERCÉES COMMERCIALES MAJEURES</span></h4>', unsafe_allow_html=True)
 
 st.markdown("""
-<h3>🔋 SMR – Partenariats Commerciaux Stratégiques</h3>
+<h4><span style='font-size: 0.75em;'>🔋 SMR – Partenariats Commerciaux Stratégiques</span></h4>
 
 <div class="division-card">
     <div class="division-header-green">🇨🇿 Partenariat stratégique avec ČEZ</div>
@@ -708,26 +680,97 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Section VIII - Propulsion spatiale (titre réduit)
+# Section VIII - Propulsion spatiale (développée)
 st.markdown('<h4 class="section-header">VIII. PROPULSION SPATIALE - INNOVATION BREAKTHROUGH</h4>', unsafe_allow_html=True)
-
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
 
 st.markdown("""
 <div class="new-development">
-    <strong>🚀 Microréacteurs Nucléaires Spatiaux :</strong> £4,8M de financement par l'UK Space Agency pour des microréacteurs spatiaux (total £9,1M). Partenaires Oxford + Bangor Universities. Démonstration vol spatial fin décennie. Applications : propulsion satellites, bases lunaires.
+    <strong>🚀 Leadership Technologique Spatial :</strong> Rolls-Royce développe des microréacteurs nucléaires spatiaux avec £9,1M de financement total (UK Space Agency + NASA). Partenariats stratégiques Oxford + Bangor Universities + BWXT. Objectif : démonstration d'un vol spatial d'ici la fin de la décennie.
 </div>
 """, unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
+# Développement complet de la section spatiale
+st.markdown("""
+<h3><span style='font-size: 0.85em;'>🛰️ Programmes Spatiaux Nucléaires Multi-Agences</span></h3>
 
-# Section IX - Power Systems (titre réduit)
-st.markdown('<h4 class="section-header">IX. POWER SYSTEMS - EXPLOSION BESS & DATA CENTERS</h4>', unsafe_allow_html=True)
+<div class="division-card">
+    <div class="division-header-green">🇺🇸 Contrat NASA - $1 Million (avril 2024)</div>
+    <ul>
+        <li><strong>Client</strong> : NASA Glenn Research Center, Cleveland</li>
+        <li><strong>Projet</strong> : Développement d'un <strong>Advanced Closed Brayton Cycle converter</strong> pour microréacteurs spatiaux de nouvelle génération</li>
+        <li><strong>Durée</strong> : 12 mois (contrat preliminary design)</li>
+        <li><strong>Division</strong> : Rolls-Royce LibertyWorks (spécialisée conversion d'énergie)</li>
+        <li><strong>Innovation</strong> : Système de conversion en <strong>cycle fermé Brayton</strong> permettant des opérations spatiales robustes</li>
+    </ul>
+</div>
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
+<div class="division-card" style="margin-top: 20px;">
+    <div class="division-header">🇬🇧 UK Space Agency - Phase 2 (£1,18M avec BWXT)</div>
+    <ul>
+        <li><strong>Programme</strong> : International Bilateral Fund (IBF) Phase 2</li>
+        <li><strong>Partenaire stratégique</strong> : BWXT Advanced Technologies (leader américain nucléaire)</li>
+        <li><strong>Objectif</strong> : Identification et développement des <strong>technologies optimales pour systèmes de fission nucléaire spatiale</strong></li>
+        <li><strong>Bénéfice mutuel</strong> : Avancement des programmes nucléaires spatiaux UK et US</li>
+        <li><strong>Déclaration Atlantic</strong> : Coopération renforcée UK-US sur propulsion nucléaire spatiale (juin 2023)</li>
+    </ul>
+</div>
+
+<div class="division-card" style="margin-top: 20px;">
+    <div class="division-header-brown">🌙 Applications & Marchés Cibles</div>
+    <ul>
+        <li><strong>Bases lunaires</strong> : Alimentation énergétique pour installations permanentes (zone sud lunaire sans soleil)</li>
+        <li><strong>Propulsion interplanétaire</strong> : Réduction des temps de voyage vers Mars (6-9 mois actuels)</li>
+        <li><strong>Satellites avancés</strong> : Manœuvrabilité et autonomie énergétique accrues</li>
+        <li><strong>Missions Deep Space</strong> : Exploration au-delà de l'orbite terrestre</li>
+        <li><strong>Timeline commerciale</strong> : <strong>Déploiement microréacteur lunaire début 2030</strong></li>
+    </ul>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<table>
+    <tr>
+        <th style="text-align: center;">Spécifications Techniques</th>
+        <th style="text-align: center;">Microréacteur Spatial RR</th>
+        <th style="text-align: center;">Avantages vs. Alternatives</th>
+    </tr>
+    <tr>
+        <td><strong>Puissance de sortie</strong></td>
+        <td>1-10 MWe (gamme microréacteur)</td>
+        <td>Supérieur aux RTGs (Radioisotope Thermoelectric Generators)</td>
+    </tr>
+    <tr>
+        <td><strong>Combustible</strong></td>
+        <td>Particules d'uranium encapsulées multi-couches</td>
+        <td class="positive">Système de confinement intégré, résistance aux conditions extrêmes</td>
+    </tr>
+    <tr>
+        <td><strong>Conversion d'énergie</strong></td>
+        <td>Cycle Brayton fermé avancé</td>
+        <td>Efficacité maximale + fiabilité opérationnelle spatiale</td>
+    </tr>
+    <tr>
+        <td><strong>Durée opérationnelle</strong></td>
+        <td>10+ ans autonomie</td>
+        <td>Maintenance réduite vs. panneaux solaires spatiaux</td>
+    </tr>
+</table>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div style="background: #f0f4f8; border: 1px solid #1e3a8a; border-radius: 10px; padding: 20px; margin: 20px 0;">
+    <h4 style="color: #1e3a8a; margin-top: 0;">🔬 Partenariats Académiques & R&D</h4>
+    <ul>
+        <li><strong>University of Oxford</strong> : Recherche avancée en technologies nucléaires spatiales</li>
+        <li><strong>Bangor University</strong> : Développement de matériaux résistants aux radiations spatiales</li>
+        <li><strong>BWXT Advanced Technologies</strong> : Plus de 130 ans d'expérience nucléaire combinée (UK + US)</li>
+        <li><strong>Rolls-Royce LibertyWorks</strong> : Division spécialisée conversion d'énergie et systèmes avancés</li>
+    </ul>
+</div>
+""", unsafe_allow_html=True)
+
+# Section IX - Power Systems
+st.markdown('<h4 class="section-header">IX. POWER SYSTEMS - Essor des systèmes BESS et des data centers</h4>', unsafe_allow_html=True)
 
 col1, col2, col3, col4 = st.columns(4)
 
@@ -763,40 +806,37 @@ with col4:
     </div>
     """, unsafe_allow_html=True)
 
-st.markdown("### 🔋 BESS - Projets Majeurs Confirmés")
+st.markdown("### <span style='font-size: 0.75em;'>🔋 BESS (Système de stockage d'énergie par batteries) - Projets Majeurs Confirmés</span>", unsafe_allow_html=True)
 st.markdown("""
-- **Lettonie :** Un des plus gros BESS Union Européenne
+- **Lettonie :** Un des projets BESS les plus importants de l'Union Européenne
 - **Pays-Bas Castor :** 62,6 MWh (plus gros du pays)
 - **Pays-Bas Zeewolde :** 65,2 MWh operational été 2025
 - **Allemagne :** Projets multiples intégration renouvelables
 """)
 
-# Section X - Catalyseurs (titre réduit)
+# Section X - Catalyseurs
 st.markdown('<h4 class="section-header">X. 🔋 Catalyseurs de Croissance Confirmés</h4>', unsafe_allow_html=True)
 
-# Séparateur marron
-st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
-
 st.markdown("""
-<h3>🚀 Transformation Accélérée (2022–2024)</h3>
+<h3><span style='font-size: 0.85em;'>🚀 Transformation Accélérée (2022–2024)</span></h3>
 <ul>
    <li><strong>Leadership Tufan Erginbilgic</strong> : transformation « One Rolls-Royce » réussie, objectifs 2027 atteints <strong>2 ans en avance</strong>.</li>
    <li><strong>+700 % de progression de l'action</strong> depuis janvier 2023, reflet d'un repositionnement stratégique et opérationnel réussi.</li>
 </ul>
 
-<h3>📈 Leviers Stratégiques Clés</h3>
+<h3><span style='font-size: 0.9em;'>📈 Leviers Stratégiques Clés</span></h3>
 <ul>
    <li><strong>Défense</strong> : contrat Unity (£9 Mrd, 8 ans de revenus sécurisés), soutien géopolitique renforcé via AUKUS.</li>
    <li><strong>Net Zero</strong> : UltraFan (+10 % d'efficacité, 100 % SAF), SMR en phase avancée (partenariats ČEZ + Siemens, avance réglementaire).</li>
    <li><strong>Power Systems / Data Centers</strong> : croissance rapide du besoin énergétique → déploiement de BESS (Lettonie, Pays-Bas).</li>
-   <li><strong>Espace</strong> : développement de microréacteurs nucléaires (financement total £9,1M, Oxford + Bangor), avec applications satellites, bases lunaires.</li>
+   <li><strong>Espace</strong> : développement de microréacteurs nucléaires (financement total £9,1M + $1M NASA, Oxford + Bangor + BWXT), avec applications satellites, bases lunaires.</li>
    <li><strong>Technologies différenciantes</strong> : gearbox UltraFan (50 MW), robots SWARM, maintenance IA → <strong>barrières à l'entrée technologiques élevées</strong>.</li>
 </ul>
 
 <div style="display: flex; gap: 20px; margin-top: 20px;">
     <div style="flex: 1;">
         <div class="strengths">
-            <h3>🟢 Forces Consolidées</h3>
+            <h4 style="color: #22c55e; font-size: 0.95rem;">🟢 Forces Consolidées</h4>
             <ul>
                 <li>Revenus récurrents sécurisés sur plusieurs années</li>
                 <li>Avancées probantes réglementaires et technologiques sur les SMR</li>
@@ -807,7 +847,7 @@ st.markdown("""
     </div>
     <div style="flex: 1;">
         <div class="weaknesses">
-            <h3>🔶 Points de Vigilance</h3>
+            <h4 style="color: #ef4444; font-size: 0.95rem;">🔶 Points de Vigilance</h4>
             <ul>
                 <li>Complexité de gestion multi-programmes (SMR, UltraFan, spatial)</li>
                 <li>Dépendance à la chaîne d'approvisionnement (en atténuation via robotisation)</li>
@@ -834,7 +874,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Footer avec disclaimer et séparateur marron
+# Footer avec disclaimer
 st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
 st.markdown("""
 <div style="text-align: center; font-size: 0.9rem; color: #6b7280; margin-top: 30px;">

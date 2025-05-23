@@ -27,7 +27,7 @@ apply_custom_css()
 
 # Titre principal 
 st.markdown(
-    create_title("Komorebi Investments 8 stocks <span style='font-size:18px;'>(page 1/2)</span>"),
+    create_title("Komorebi Investments 8 stocks <span style='font-size:18px;'>(page 1/3)</span>"),
     unsafe_allow_html=True
 )
 
