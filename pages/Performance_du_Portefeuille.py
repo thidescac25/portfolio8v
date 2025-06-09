@@ -21,11 +21,38 @@ st.set_page_config(
     page_title="Komorebi - Performance Portefeuille 8",
     page_icon="📈",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
 # Appliquer le CSS personnalisé
 apply_custom_css()
+
+# CSS pour les boutons de navigation - AJOUTEZ LE MÊME CSS ICI
+st.markdown("""
+<style>
+    .stButton > button {
+        background-color: #5D4037 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        font-size: 16px !important;
+        padding: 12px 20px !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+    }
+    
+    .stButton > button:hover {
+        background-color: #4A2C20 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0px) !important;
+    }
+</style>
+""", unsafe_allow_html=True)
 
 # CSS supplémentaire pour cette page
 st.markdown("""
@@ -60,6 +87,20 @@ currency_mapping = {
 
 # Titre principal
 st.markdown("<h1 style='font-size: 32px; margin-bottom: 10px;'>Komorebi - Performance du Portefeuille 8 valeurs <span style='font-size: 18px;'>(page 2/3)</span></h1>", unsafe_allow_html=True)
+
+# Navigation
+col1, col2, col3 = st.columns(3)
+with col1:
+    if st.button("📊 Business Models", use_container_width=True):
+        st.switch_page("pages/Business_Models.py")
+with col2:
+    if st.button("📈 Performance du Portefeuille", use_container_width=True):
+        st.switch_page("pages/Performance_du_Portefeuille.py")
+with col3:
+    if st.button("✈️ ROLLS-ROYCE HOLDINGS", use_container_width=True):
+        st.switch_page("pages/ROLLS_ROYCE_HOLDINGS.py")
+
+st.markdown("---")
 
 # Fonction pour obtenir les données boursières actuelles
 @st.cache_data(ttl=60)
@@ -138,7 +179,7 @@ def create_scrolling_ticker():
             }}
             .ticker-tape {{
                 display: inline-block;
-                animation: ticker-scroll 120s linear infinite;
+                animation: ticker-scroll 80s linear infinite;
                 padding-left: 100%;
             }}
             .ticker-item {{

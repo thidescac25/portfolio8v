@@ -10,7 +10,8 @@ from io import BytesIO
 st.set_page_config(
     page_title="Fiche d'Investissement - Rolls-Royce Holdings plc",
     page_icon="📊",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # CSS personnalisé pour reproduire le style de la fiche HTML
@@ -214,6 +215,28 @@ st.markdown("""
         margin: 20px 0;
         padding-left: 120px;
     }
+            
+    .stButton > button {
+        background-color: #5D4037 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 8px !important;
+        font-weight: bold !important;
+        font-size: 16px !important;
+        padding: 12px 20px !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.2) !important;
+    }
+    
+    .stButton > button:hover {
+        background-color: #4A2C20 !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3) !important;
+    }
+    
+    .stButton > button:active {
+        transform: translateY(0px) !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -223,6 +246,20 @@ st.markdown("""
     <h2>Fiche Investissement Valeur - Analyse mai 2025 <span style="font-size: 0.6em; font-weight: bold;">(page 3/3)</span></h2>
 </div>
 """, unsafe_allow_html=True)
+
+# Navigation
+col1, col2, col3 = st.columns(3)
+with col1:
+    if st.button("📊 Business Models", use_container_width=True):
+        st.switch_page("pages/Business_Models.py")
+with col2:
+    if st.button("📈 Performance du Portefeuille", use_container_width=True):
+        st.switch_page("pages/Performance_du_Portefeuille.py")
+with col3:
+    if st.button("✈️ ROLLS-ROYCE HOLDINGS", use_container_width=True):
+        st.switch_page("pages/ROLLS_ROYCE_HOLDINGS.py")
+
+st.markdown("---")
 
 # Séparateur marron foncé
 st.markdown('<hr style="height:2px;border:none;color:#5D4037;background-color:#5D4037;" />', unsafe_allow_html=True)
