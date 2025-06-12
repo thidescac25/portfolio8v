@@ -303,6 +303,15 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# Performance boursière exceptionnelle - PLACEMENT STRATÉGIQUE après header
+st.markdown("""
+<div style="background: linear-gradient(135deg, #22c55e, #16a34a); color: white; padding: 20px; border-radius: 10px; text-align: center; margin: 20px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <h3 style="margin: 0 0 10px 0; font-size: 1.4rem;">📈 Performance Boursière Exceptionnelle</h3>
+    <div style="font-size: 1.2rem;"><strong>+1000% depuis octobre 2022</strong> (comparable aux 1061% de Nvidia sur la même période)</div>
+    <div style="font-size: 0.9rem; margin-top: 10px; opacity: 0.9;">Transformation spectaculaire orchestrée par le CEO Tufan Erginbilgic - l'un des retournements les plus impressionnants du secteur aérospatial</div>
+</div>
+""", unsafe_allow_html=True)
+
 # Contrat Unity
 st.markdown("""
 <div class="unity-contract">
@@ -340,7 +349,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Métriques clés avec cours actualisé - espace augmenté avant (60px au lieu de 50px)
+# Métriques clés avec cours actualisé
 st.markdown("<h3 style='text-align: center; margin: 60px 0 30px 0;'>Indicateurs Clés</h3>", unsafe_allow_html=True)
 
 # Récupération du cours actuel avec yfinance
@@ -391,7 +400,7 @@ with col4:
     </div>
     """, unsafe_allow_html=True)
 
-# Section I - Présentation (espace fortement augmenté avant)
+# Section I - Présentation
 st.markdown('<h4 class="section-header first-section">I. PRÉSENTATION DE LA SOCIÉTÉ</h4>', unsafe_allow_html=True)
 
 st.info("**Positionnement :** 2ème fabricant mondial de moteurs d'avions • 16ème contractant mondial dans l'industrie de la défense • Leader mondial en propulsion nucléaire navale")
@@ -424,6 +433,32 @@ st.markdown("""
         <td>Power-by-the-Hour : Vente moteurs + maintenance long terme</td>
     </tr>
 </table>
+""", unsafe_allow_html=True)
+
+# Section I.2 - Contexte Historique et Transformation
+st.markdown('<h4 class="section-header">I.2 CONTEXTE HISTORIQUE & TRANSFORMATION RÉUSSIE</h4>', unsafe_allow_html=True)
+
+st.markdown("### <span style='font-size: 0.75em;'>⚠️ Les Problèmes Historiques (2016-2022)</span>", unsafe_allow_html=True)
+
+st.markdown("""
+<div style="background: #fef2f2; border-left: 4px solid #ef4444; padding: 20px; border-radius: 5px; margin: 15px 0;">
+    <p>🔴 <strong>Le Trent 1000 : Un Fardeau de £2,4 Milliards</strong></p>
+    <p>Les problèmes du moteur Trent 1000 ont coûté à Rolls-Royce <strong>£2,4 milliards sur 2017-2023</strong>, avec des provisions exceptionnelles de <strong>£1,36 milliard en 2019</strong>. Au pic, <strong>44 avions étaient cloués au sol</strong>.</p>
+    <p>🦠 <strong>Impact de la Pandémie</strong></p>
+    <ul style="margin-top:0; padding-left:1.2em;">
+        <li>Effondrement des heures de vol et des revenus aftermarket</li>
+        <li><strong>Suppression de 4 600 emplois en 2018</strong>, dont les deux tiers au Royaume-Uni</li>
+        <li>Détérioration de la position financière avec un <strong>endettement net de £2,0 milliards fin 2023</strong></li>
+    </ul>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("### <span style='font-size: 0.75em;'>✅ Redressement Spectaculaire (2023-2025)</span>", unsafe_allow_html=True)
+
+st.markdown("""
+<div style="background: #f0f9ff; border-left: 4px solid #22c55e; padding: 20px; border-radius: 5px;">
+    <p>Sous la direction de <strong>Tufan Erginbilgic</strong> (CEO depuis janvier 2023), Rolls-Royce a orchestré l'un des retournements d'entreprise les plus impressionnants du secteur aérospatial, passant d'une société en difficulté à un leader technologique reconnu.</p>
+</div>
 """, unsafe_allow_html=True)
 
 # Section II - Résultats financiers
@@ -470,7 +505,16 @@ st.markdown("""
 </table>
 """, unsafe_allow_html=True)
 
-# Section III - Guidance (ancienne section IV - déplacée ici)
+# Reconnaissance par les agences de notation - PLACEMENT STRATÉGIQUE après résultats financiers
+st.markdown("### <span style='font-size: 0.75em;'>📊 Reconnaissance par les Agences de Notation</span>", unsafe_allow_html=True)
+
+st.markdown("""
+<div style="background: linear-gradient(135deg, #16a34a, #22c55e); color: white; padding: 20px; border-radius: 10px; margin: 15px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+    <p style="margin: 0; font-size: 1.1rem;">Les efforts de renforcement du bilan ont été <strong>reconnus par les trois agences de notation de crédit</strong>, qui maintiennent toutes une <strong>note investment grade avec perspective positive</strong>, avec des relèvements à <strong>BBB+ par Fitch</strong> et à <strong>Baa2 par Moody's</strong>.</p>
+</div>
+""", unsafe_allow_html=True)
+
+# Section III - Guidance
 st.markdown('<h4 class="section-header">III. GUIDANCE 2025 & OBJECTIFS MID-TERM RELEVÉS</h4>', unsafe_allow_html=True)
 
 st.markdown("### <span style='font-size: 0.8em;'>🎯 Guidance 2025 (confirmée)</span>", unsafe_allow_html=True)
@@ -511,7 +555,7 @@ st.markdown("""
 </table>
 """, unsafe_allow_html=True)
 
-# Section IV - Structure par divisions (ancienne section III - renumérotée)
+# Section IV - Structure par divisions
 st.markdown('<h4 class="section-header">IV. STRUCTURE PAR DIVISIONS</h4>', unsafe_allow_html=True)
 
 # Encart Power-by-the-Hour corrigé - contenu HTML affiché correctement
@@ -642,7 +686,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Section VI - UltraFan (titre modifié)
+# Section VI - UltraFan
 st.markdown('<h4 class="section-header">VI. FUTUR MOTEUR AVION "ULTRAFAN" - ÉVOLUTION TECHNOLOGIQUE VALIDÉE</h4>', unsafe_allow_html=True)
 
 st.markdown("""
@@ -717,7 +761,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-# Section VIII - Propulsion spatiale (développée)
+# Section VIII - Propulsion spatiale
 st.markdown('<h4 class="section-header">VIII. PROPULSION SPATIALE - INNOVATION BREAKTHROUGH</h4>', unsafe_allow_html=True)
 
 st.markdown("""
@@ -809,6 +853,14 @@ st.markdown("""
 # Section IX - Power Systems
 st.markdown('<h4 class="section-header">IX. POWER SYSTEMS - Essor des systèmes BESS et des data centers</h4>', unsafe_allow_html=True)
 
+# Information sur MTU Power Systems - PLACEMENT STRATÉGIQUE au début de la section
+st.markdown("""
+<div style="background: #f0f4f8; border: 1px solid #8d6e63; border-radius: 10px; padding: 20px; margin-bottom: 20px;">
+    <h4 style="color: #5D4037; margin-top: 0; font-size: 1.1rem;">🚢 MTU Power Systems - Leader Secteur Marine & Data Centers</h4>
+    <p><strong>MTU Power Systems</strong> est leader mondial des moteurs diesel pour le secteur marine/yachting et détient une <strong>capacité de 1,3GW pour les data centers</strong>, positionnant Rolls-Royce comme un acteur de référence dans l'infrastructure énergétique critique.</p>
+</div>
+""", unsafe_allow_html=True)
+
 col1, col2, col3, col4 = st.columns(4)
 
 with col1:
@@ -858,7 +910,7 @@ st.markdown("""
 <h3><span style='font-size: 0.85em;'>🚀 Transformation Accélérée (2022–2024)</span></h3>
 <ul>
    <li><strong>Leadership Tufan Erginbilgic</strong> : transformation « One Rolls-Royce » réussie, objectifs 2027 atteints <strong>2 ans en avance</strong>.</li>
-   <li><strong>+700 % de progression de l'action</strong> depuis janvier 2023, reflet d'un repositionnement stratégique et opérationnel réussi.</li>
+   <li><strong>Performance boursière exceptionnelle</strong> : retournement spectaculaire confirmé par +1000% depuis octobre 2022.</li>
 </ul>
 
 <h3><span style='font-size: 0.9em;'>📈 Leviers Stratégiques Clés</span></h3>
