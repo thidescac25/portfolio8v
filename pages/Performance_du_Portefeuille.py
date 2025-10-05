@@ -18,7 +18,7 @@ from ui_components import apply_custom_css
 
 # Configuration de la page Streamlit
 st.set_page_config(
-    page_title="Komorebi - Performance Portefeuille 8",
+    page_title="Komorebi - Performance Portefeuille 10",
     page_icon="📈",
     layout="wide",
     initial_sidebar_state="collapsed"
@@ -86,7 +86,7 @@ currency_mapping = {
 }
 
 # Titre principal
-st.markdown("<h1 style='font-size: 32px; margin-bottom: 10px;'>Komorebi - Performance du Portefeuille 8 valeurs <span style='font-size: 18px;'>(page 2/3)</span></h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='font-size: 32px; margin-bottom: 10px;'>Komorebi - Performance du Portefeuille 10 valeurs <span style='font-size: 18px;'>(page 2/3)</span></h1>", unsafe_allow_html=True)
 
 # Navigation
 col1, col2, col3 = st.columns(3)

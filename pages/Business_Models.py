@@ -16,7 +16,7 @@ from visualization import create_stock_chart, create_portfolio_table
 
 # Configuration de la page
 st.set_page_config(
-    page_title="Komorebi Investments 8 stocks",
+    page_title="Komorebi Investments 10 stocks",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="collapsed"
