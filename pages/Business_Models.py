@@ -54,7 +54,7 @@ st.markdown("""
 
 # Titre principal 
 st.markdown(
-    create_title("Business Models - Komorebi Investments 8 stocks <span style='font-size:18px;'>(page 1/3)</span>"),
+    create_title("Business Models - Komorebi Investments 10 stocks <span style='font-size:18px;'>(page 1/3)</span>"),
     unsafe_allow_html=True
 )
 
@@ -179,19 +179,19 @@ st.markdown('<div class="section-title">Composition du portefeuille</div>', unsa
 # CSS OPTIMAL 
 st.markdown("""
 <style>
-/* 1/ Enlève tout espace sous le tableau plotly (Solution ChatGPT v2) */
+/* 1/ Enlève tout espace sous le tableau plotly */
 .stPlotlyChart > div {
     margin-bottom: 0 !important;
     padding-bottom: 0 !important;
 }
 
-/* 2/ Force le titre suivant à coller en haut (Solution ChatGPT v2) */
+/* 2/ Force le titre suivant à coller en haut  */
 .section-title.next {
     margin-top: 5px !important;
     margin-bottom: 5px !important;
 }
 
-/* 3/ Largeur complète du tableau (Ma contribution) */
+/* 3/ Largeur complète du tableau */
 .portfolio-table-container {
     width: 100vw !important;
     margin-left: calc(-50vw + 50%) !important;
