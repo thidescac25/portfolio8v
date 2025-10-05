@@ -1,58 +1,79 @@
-Komorebi Investments 8 stocks 
+Komorebi Investments 10 Stocks
 
-Application de présentation et de suivi d'un portefeuille de 8 actions internationales développée avec Streamlit.
+Application interactive de suivi et d’analyse d’un portefeuille international de 10 actions, développée avec Streamlit.
 
-Fonctionnalités
+Cette version prolonge le projet initial "Komorebi Investments 8 Stocks" avec deux nouvelles valeurs majeures et une architecture de données modernisée.
 
-Suivi en temps réel : Bandeau défilant avec les prix actuels et variations des 8 valeurs du portefeuille
-Présentation comparative : Performance historique comparée aux indices majeurs (CAC 40, S&P 500, etc.)
-Simulation d'investissement : Évolution d'un portefeuille d'1M€ réparti équitablement
-Présentation sectorielle et géographique : Visualisation de la répartition du portefeuille
-Métriques détaillées : PER, rendement du dividende, capitalisation, BPA, etc.
-Données multidevises : Support de plusieurs devises (€, $, £, CHF)
-Graphiques interactifs : Visualisation de l'évolution des cours sur différentes périodes
-Présentation des business models : Mise en valeur des modèles économiques comme critère de sélection
+🚀 Fonctionnalités principales
 
-Composition du portefeuille
-Le portefeuille est composé de 8 actions internationales diversifiées :
+📈 Suivi en temps réel :
+Bandeau défilant affichant les prix actuels et les variations instantanées des 10 valeurs.
 
-GOOGL (Alphabet) - USA
-ERF.PA (Eurofins Scientific) - France
-GTT.PA (Gaztransport et Technigaz) - France
-GD (General Dynamics) - USA
-ROG.SW (Roche Holding) - Suisse
-RR.L (Rolls-Royce) - Royaume-Uni
-UBSG.SW (UBS Group) - Suisse
-VIE.PA (Veolia) - France
+💹 Analyse comparative :
+Performance historique comparée à plusieurs indices de référence (CAC 40, S&P 500, etc.).
 
-Structure du projet
+💰 Simulation d’investissement :
+Évolution d’un portefeuille hypothétique de 1 000 000 € réparti équitablement entre les 10 actions.
 
-app.py : Page d'accueil avec bandeau défilant et sélection d'entreprise
-pages/2_Portfolio_Analysis.py : Présentation détaillée du portefeuille
-data/Portefeuille_8_business_models.csv : Données des entreprises
+🌍 Répartition sectorielle et géographique :
+Graphiques interactifs des allocations par secteur et pays.
 
-Technologies utilisées
+🧮 Indicateurs fondamentaux :
+PER, rendement du dividende, capitalisation boursière, BPA, variation YTD, etc.
 
-Python 3.x
-Streamlit pour l'interface web
-Pandas & NumPy pour la présentation de données
-Plotly pour les graphiques interactifs
-yfinance pour les données boursières
-Intégration HTML/CSS pour le bandeau défilant
+💱 Support multidevise :
+Conversion automatique selon la devise du ticker : €, $, £, CHF.
 
-Installation locale
-bash# Cloner le dépôt
-git clone https://github.com/thidescac25/portfolio8v.git
-cd portfolio8v
+📊 Visualisations interactives :
+Graphiques Plotly pour suivre l’évolution des cours sur 1 mois, 6 mois ou 1 an.
 
-# Installer les dépendances
-pip install -r requirements.txt
+🏛️ Présentation des business models :
+Texte descriptif pour chaque entreprise afin de comprendre sa logique économique et son “moat”.
 
-# Lancer l'application
-streamlit run app.py
+💼 Composition du portefeuille (Version 2.0 – Octobre 2025)
+Ticker	Société	Pays	Secteur
+GOOGL	Alphabet Inc.	🇺🇸 USA	Technologie
+ERF.PA	Eurofins Scientific	🇫🇷 France	Biotechnologie
+GTT.PA	Gaztransport & Technigaz	🇫🇷 France	Énergie / GNL
+GD	General Dynamics	🇺🇸 USA	Défense
+ROG.SW	Roche Holding	🇨🇭 Suisse	Santé / Pharma
+RR.L	Rolls-Royce Holdings	🇬🇧 Royaume-Uni	Aéronautique / Énergie
+UBSG.SW	UBS Group	🇨🇭 Suisse	Banque / Gestion d’actifs
+VIE.PA	Veolia Environnement	🇫🇷 France	Services aux collectivités
+RIO.L	Rio Tinto plc	🇬🇧 Royaume-Uni	Matières premières / Cuivre / Lithium
+SLB	Schlumberger (SLB)	🇺🇸 USA	Énergie / Services pétroliers
 
-Déploiement
-L'application est déployée sur Streamlit Sharing et accessible via le compte utilisateur thidescac25.
+🧩 Structure du projet
+portfolio10v/
+│
+├── app.py                        # Page d’accueil et routage vers Business Models
+├── pages/
+│   ├── Business_Models.py        # Présentation des modèles économiques
+│   ├── Performance_du_Portefeuille.py
+│   └── ROLLS_ROYCE_HOLDINGS.py   # Page dédiée d'analyse détaillée
+│
+├── src/
+│   ├── data_loader.py            # Chargement du CSV et des données YFinance
+│   ├── stock_utils.py            # Devises, rendements, formatage
+│   ├── ui_components.py          # CSS, bandeau défilant, mise en page
+│   └── visualization.py          # Fonctions de graphiques Plotly
+│
+├── data/
+│   ├── Portefeuille_10_business_models.csv
+│   └── Tickers_Yahoo_F.xlsx
+│
+├── images/                       # Logos, captures d’écran
+├── requirements.txt              # Dépendances Python
+└── README.md                     # Documentation du projet
 
-Auteur
-Thierry - thidescac25
+🌐 Déploiement
+
+L’application peut être déployée sur :
+Streamlit Community Cloud
+ou sur un serveur privé / VPS (ex : PythonAnywhere, Render, ou Railway).
+
+👤 Auteur
+
+Thierry (thidescac25)
+💼 Data Analyst – Concepteur d’outils décisionnels
+📍 France
