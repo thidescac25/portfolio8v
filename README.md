@@ -41,7 +41,7 @@ RR.L	Rolls-Royce Holdings	🇬🇧 Royaume-Uni	Aéronautique / Énergie
 UBSG.SW	UBS Group	🇨🇭 Suisse	Banque / Gestion d’actifs
 VIE.PA	Veolia Environnement	🇫🇷 France	Services aux collectivités
 RIO.L	Rio Tinto plc	🇬🇧 Royaume-Uni	Matières premières / Cuivre / Lithium
-SLB	Schlumberger (SLB)	🇺🇸 USA	Énergie / Services pétroliers
+OTIS  Otis Worldwide  🇺🇸 USA  Machines / industrielles / Services 
 
 🧩 Structure du projet
 portfolio10v/
