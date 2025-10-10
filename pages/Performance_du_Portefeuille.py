@@ -75,14 +75,16 @@ portfolio_df = load_portfolio_data()
 
 # Mapping des devises pour chaque ticker
 currency_mapping = {
-    "GOOGL": "$",
-    "ERF.PA": "€",
-    "GTT.PA": "€",
-    "GD": "$",
-    "ROG.SW": "CHF",
-    "RR.L": "£",
-    "UBSG.SW": "CHF",
-    "VIE.PA": "€"
+    "GOOGL": "$",      # Alphabet (USD)
+    "ERF.PA": "€",     # Eurofins Scientific (EUR)
+    "GTT.PA": "€",     # Gaztransport & Technigaz (EUR)
+    "GD": "$",         # General Dynamics (USD)
+    "ROG.SW": "CHF",   # Roche Holding (CHF)
+    "RR.L": "£",       # Rolls-Royce Holdings (GBP)
+    "UBSG.SW": "CHF",  # UBS Group (CHF)
+    "VIE.PA": "€",     # Veolia Environnement (EUR)
+    "RIO.L": "£",      # Rio Tinto (GBP)
+    "OTIS": "$"        # Otis Worldwide (USD)
 }
 
 # Titre principal
